@@ -3,10 +3,11 @@ function [ out_signal ] = get_event_signal( signal, t, cells )
 %   Detailed explanation goes here
 
     cells_size = size(cells);
+    points = [];
     for i = 1:cells_size(2)
-        points = get_event_times(cells(:,i));
+        points = [points;get_event_times(cells(:,i))]
     end
-    point_size = size(points);
+    point_size = size(points)
     threshold = 0.001;
     nonzero_idx = [];
     for i = 1:point_size(1)
