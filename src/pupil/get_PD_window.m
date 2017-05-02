@@ -1,4 +1,4 @@
-function [ pds ] = get_PD_window(y, t, window_size)
+function [ pds ] = get_PD_window(y, t)
 %get_PD_window Returns 1xN vector of average PDs.
 %   window_size specified in seconds
 
