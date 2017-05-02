@@ -25,7 +25,8 @@ mean_abs = mean(abs(diff(y))); % feature 3, means of abs of
                                   
 mean_norm_abs = mean(abs(diff(y_norm)))'; % feature 4, means of abs of
                 %           first differences sum(Xnorm_{n+1} - Xnorm_{n})
-   
+
+y = y';
 x_n = y;
 x_n(:,1) = [];
 x_n(:, 1) = [];
@@ -36,7 +37,7 @@ x_np2(:, end) = [];
 mean_abs2 = mean(abs(x_np2 - x_n)); % feature 5, means of abs of
                                   %first differences sum(X_{n+2} - X_{n})
 
-                             
+y_norm = y_norm';                           
 x_n = y_norm;
 x_n(:, 1) = [];
 x_n(:, 1) = [];
