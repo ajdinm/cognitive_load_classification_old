@@ -49,8 +49,8 @@ for i = 1:s(1)
 end
 signals = new_sig;
 avgs = sum(signals') ./ signal_len;
-ignore_len = fs * ignore;
-signals(:, 1:ignore_len) = [];
+% ignore_len = fs * ignore;
+% signals(:, 1:ignore_len) = [];
 s1 = signals(1,:);
 s2 = signals(2,:);
 s3 = signals(3,:);
