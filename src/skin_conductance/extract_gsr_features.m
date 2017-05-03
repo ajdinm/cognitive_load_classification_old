@@ -1,5 +1,5 @@
-load('/home/ajdin/workspace/AAI_project/dataset/TP02_20150518_1500_Drive.mat');
-load('/home/ajdin/workspace/AAI_project/dataset/TP02_20150518_1500_Drive_TimeSegment.mat')
+%load('/home/ajdin/workspace/AAI_project/dataset/TP02_20150518_1500_Drive.mat');
+%load('/home/ajdin/workspace/AAI_project/dataset/TP02_20150518_1500_Drive_TimeSegment.mat')
 
 y = SS_VDM_SC.Data;
 t = SS_VDM_SC.TimeAxis.Data;
