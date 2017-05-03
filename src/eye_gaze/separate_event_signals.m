@@ -49,15 +49,10 @@ for i = 1:s(1)
 end
 signals = new_sig;
 avgs = sum(signals') ./ signal_len;
-%ignore first 10
 ignore_len = fs * ignore;
 signals(:, 1:ignore_len) = [];
-% take only first 50sec
-len = fs * 50;
-signals(:, len:end) = [];
 s1 = signals(1,:);
 s2 = signals(2,:);
 s3 = signals(3,:);
 s4 = signals(4,:);
-
 end
