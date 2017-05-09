@@ -3,7 +3,7 @@ function[Data] = BandPassFilter(LowCutOff, HighCutOff, fs, Data, Order)
     wnHigh = HighCutOff/(fs/2);
     %[a, b]=butter(Order, [wnLow wnHigh],'bandpass'); 
     %Data=filter(a, b, Data);
-    
+    % extra change
     
     a=fir1(4000,[wnLow wnHigh])
     Data=filter(a,1,Data);
