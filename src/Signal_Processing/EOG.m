@@ -1,4 +1,6 @@
 function [BlinkTime,NrOfBlinks,STDAMP ] = EOG(event,dir)
+    %testing github
+    
     %Preprocessing and feature extraction from the EOG signal
     %The average blinktime and nr of blinks during the event time
     %are extracted from the signal
