@@ -34,11 +34,11 @@ for i = 1:length(step_sizes)
                 % yi * (w_t . xi) + b must be >= 1
                 
                 w_temp = repmat(w_t, [size(x, 1), 1]);
-                constrains = dot(w_temp', x')'; % each row has w_t . xi
-                constrains = constrains + b; % dot(...) + b
-                constrains = y .* constrains; % yi * (dot(...) + b)
+                constraints = dot(w_temp', x')'; % each row has w_t . xi
+                constraints = constraints + b; % dot(...) + b
+                constraints = y .* constraints; % yi * (dot(...) + b)
                 
-                if size(find(constrains < 1), 1) > 0
+                if size(find(constraints < 1), 1) > 0
                     found_option = false;
                 end
                 if found_option
