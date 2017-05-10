@@ -15,13 +15,13 @@ clear
 clc
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['SW';'HE';'CR'];
+Events =['HE';'CR';'SW'];
 [nrOfEvents,~]=size(Events);
 
 X=[];
 for n=1:nrOfEvents
     
-    FeatureFolder=['C:\Users\nille\Desktop\AI Project VT 2017\Signal_Processing\ExtractedFeatures_',Events(n,:)];
+    FeatureFolder=['C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\ExtractedFeatures_',Events(n,:)];
     addpath(genpath(FeatureFolder));
     files=dir( fullfile(FeatureFolder,'*.mat'));
     files = {files.name}';
@@ -51,17 +51,26 @@ for n=1:nrOfEvents
         %network toolbox to be installed). This normalization makes the sum of
         %the square of all element in a column equal to 1
         %Norm_temp=normc(temp);
-        %Xtemp=[Xtemp; temp(:,:)];        
+        %Xtemp=[Xtemp; Norm_temp(:,:)];        
     end
-    X=[X;Xtemp(:,:)];
+    X=[X;Xtemp];
     
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %X(:, [1:8] + 12) = []; %Removing features to try improve result
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 Y=repmat([1;0],length(X)/2,1); %Labels
+Idx_CR=find(Events=='CR'); 
+%if CR is among the events the labels need to be switched around for that
+%event
+if  Idx_CR> 0
+    start=1+(Idx_CR(1,1)-1)*(length(X)/nrOfEvents);
+    stop=start+(length(X)/nrOfEvents)-1;
+    Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);
+end
+
+
 k = 4;  %How many folds for the k-fold
 
 Indices=KFoldValid(k,length(Y));
