@@ -1,9 +1,19 @@
+%Before running create three new folders in the directory of your choice
+%and name the folders: FeatureExtraction_HE, FeatureExtraction_SW,
+%FeatureExtraction_CR
+%This is used to save the different features from the different events
+%and the whole directory name goes in to SaveDir
+%For example: C:\Desktop\Feature\ExtractedFeatures_SW\
+%Also, scroll down to line 29 and change the event you want to run
+
 close all
 clear
 clc
-
-Time_Segments_Folder = 'C:\Users\nille\Desktop\AI Project VT 2017\Signal_Processing\Time Segments';
 %Time segments directory
+Time_Segments_Folder = 'C:\Users\nille\Desktop\AI Project VT 2017\script from shaibal\Time Segments';
+%SaveLocation
+SaveDir='C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\ExtractedFeatures_CR\';
+
 addpath(genpath(Time_Segments_Folder));
 files=dir( fullfile(Time_Segments_Folder,'*.mat'));
 files = {files.name}';
@@ -11,16 +21,16 @@ totalFiles = length(files);
 
 for i=1:totalFiles
     
-    load(files{i});
+    load(files{i}); %One file at the time
     name=files{i};
     nametemp=strsplit(name, 'e');
     name=strcat(nametemp{1},'e');
     folder=strcat('D:\Driving\',name); %The 8GB of data directory
-    event=CR;
+    event=CR; %From what event do you want to extract the features?
 
     for i=1:numel(event)
         event{i}.timeSegment(1) = event{i}.timeSegment(1)+10;%chop of the 10 first seconds
-        event{i}.timeSegment(2)= event{i}.timeSegment(1)+50;
+        event{i}.timeSegment(2)= event{i}.timeSegment(1)+50; %Extract features for next 50 seconds
     end
     RespRate = RESPIRATION(event,folder)';
 
@@ -70,7 +80,7 @@ for i=1:totalFiles
     nrOfZeroCross,LPA,LPFB,LPIR,TH1,ToC,PD,STDAMP,MRS,SDRS,MAFDRS,MAFDNS,...
     MASDRS,MASDNS,AGSR,AVGSR,PM,PD,NROP,TOP,ASP,BP,'RowNames',EventNumber);
     %Save works like this:
-    %Directory, name+_SW_FEATURES and now saves a table.
-    save(['C:\Users\nille\Desktop\AI Project VT 2017\Signal_Processing\ExtractedFeatures_CR\ ' name '_CR_FEATURES.mat'], 'Features');
+    %Directory, name+_SW_FEATURES and now saves a table of this test subject with that event.
+    save([SaveDir name '_CR_FEATURES.mat'], 'Features');
 end
 

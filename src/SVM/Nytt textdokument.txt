@@ -1,0 +1,13 @@
+C=1/lamda?
+
+
+
+
+http://stackoverflow.com/questions/29661486/linear-support-vector-machine-implementation-in-matlab-from-scratch
+https://www.quora.com/Why-is-Support-vector-Machine-hard-to-code-from-scratch-where-Logistic-Regression-is-not
+
+bok
+http://dl.acm.org/citation.cfm?id=345662
+
+kurs
+https://www.coursera.org/learn/machine-learning/lecture/3eNnh/mathematics-behind-large-margin-classification

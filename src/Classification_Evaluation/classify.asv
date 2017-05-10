@@ -1,3 +1,25 @@
+        start=1;
+        stop = 4;
+        for i = 1:33
+            temp = Feature(start:stop);
+            %normalize%%%%%%%%%%%%%%%
+            tempsu=sum(temp);
+            
+            sum(temp)
+            for j=1:4
+                normtemp(1,j) = temp(1,j)/tempsum;
+            end
+            %%%%%%%%%%%%%%%%%%%%%%%%%
+            Feature(start:stop)=normtemp;
+            start=start+4;
+            stop=stop+4;
+        end
+
+
+
+
+
+
 %Using the features extracted with FeatureExtraction scirpt to compare
 %5 different classifiers, k-fold cross validation is used where k can be
 %changed to any real number you want. The classifiers are evaluated
