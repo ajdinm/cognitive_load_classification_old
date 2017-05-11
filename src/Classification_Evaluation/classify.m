@@ -13,9 +13,11 @@
 close all
 clear
 clc
+
+
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['HE';'CR';'SW'];
+Events =['SW';'HE';'CR'];
 [nrOfEvents,~]=size(Events);
 
 X=[];
@@ -56,18 +58,43 @@ for n=1:nrOfEvents
     X=[X;Xtemp];
     
 end
+SH = Shaibal_Features(Events,nrOfEvents);
+X=[X,SH(:,:)];  
+%around 0.84 for linear kernel with only SW event
+%X=X(:,[2,3,7,9,26,29,30,42,49]); 
+%0.74 for gaussian kernel with only SW event
+%X=X(:,[1 2 3 4 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 29 30 33 34 35 37 38 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55]);
+%0.63 for linear kernel with ALL events
+%X=X(:,[4 6 11 15 22 35 52]);
+%0.65 for gaussian kernel with ALL events
+%X=X(:,[3 5 6 7 11 15 20 22 34 50]);
+
+X=X(:,[7 10 11 13 33 34 35 37 41 42]);
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%X(:, [1:8] + 12) = []; %Removing features to try improve result
+%Deletes column 1 to 8
+%X(:, [1:8]) = []; %Removing features to try improve result
+%X(:, [
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Y=repmat([1;0],length(X)/2,1); %Labels
+Y=repmat([1;0],length(X)/2,1); % TrueLabels
+
+
+
+
+
+
+
 Idx_CR=find(Events=='CR'); 
 %if CR is among the events the labels need to be switched around for that
 %event
+
 if  Idx_CR> 0
     start=1+(Idx_CR(1,1)-1)*(length(X)/nrOfEvents);
     stop=start+(length(X)/nrOfEvents)-1;
-    Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);
+    Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);%true labels
+ 
 end
 
 
@@ -106,12 +133,12 @@ for j=1:k
     %Training of 5 different classifiers
     rng(1);
     SVM_Gaussian=fitcsvm(training_set ,training_labels,'KernelFunction','rbf',...
-           'BoxConstraint',Inf,'ClassNames',[0,1],'KernelScale','auto');
+           'BoxConstraint',1,'KernelScale','auto','Standardize',true);
     rng(1);
     SVM_Polynomial = fitcsvm(training_set, training_labels, ... 
            'KernelFunction', 'polynomial', 'Standardize', true, 'KernelScale','auto');
     rng(1);
-    SVM_Linear  = fitcsvm(training_set, training_labels, ... 
+    SVM_Linear  = fitcsvm(training_set, training_labels,'BoxConstraint',1, ... 
            'KernelFunction', 'linear', 'Standardize', true, 'KernelScale','auto');
 
     Random_Forest = TreeBagger(20, training_set, training_labels, ...

@@ -1,6 +1,6 @@
 function [  ClassifyResult ] = EvaluateClassification(Classified, validation_labels, figNr)
     
-     [len,k]=size(Classified);
+     [~,k]=size(Classified);
      
    % validation_labels=zeros(1,len);
     %validation_labels(len/2:len)=ones;
