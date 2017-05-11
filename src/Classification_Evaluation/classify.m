@@ -24,7 +24,7 @@ Events =['HE';'CR';'SW'];
 X=[];
 for n=1:nrOfEvents
     
-    FeatureFolder=['C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\ExtractedFeatures_',Events(n,:)];
+    FeatureFolder=['/home/ajdin/workspace/AAI_project/cognitive_load_classification/src/Classification_Evaluation/ExtractedFeatures_',Events(n,:)];
     addpath(genpath(FeatureFolder));
     files=dir( fullfile(FeatureFolder,'*.mat'));
     files = {files.name}';
