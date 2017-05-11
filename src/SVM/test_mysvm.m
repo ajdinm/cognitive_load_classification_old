@@ -5,7 +5,10 @@ x = [5     1;
      2     8;
      3     8];
  y = [1 1 1 -1 -1 -1]';
- [w, b] = my_fitcsvm(x, y);
+ x = X;
+ y = Y;
+ y(y == 0) = -1;
+%  [w, b] = my_fitcsvm(x, y);
  
  positive_test = [6 -5; 5 1];
  negative_test = [2 10; 3 8];
@@ -23,10 +26,10 @@ x = [5     1;
  labels_test = [1 1 -1 -1]; 
  
  results_imp = 1:4;
- results_q = 1:4;
+ results_q;
  for i = 1:4
-    results_imp(i) = sign(dot(w, obs_test(i,:)) + b) == labels_test(i);
-    results_q(i) = sign(dot(solution_q([1 2]), obs_test(i,:)) + solution_q(3)) == labels_test(i);
+%     results_imp(i) = sign(dot(w, obs_test(i,:)) + b) == labels_test(i);
+    results_q(i) = sign(dot(solution_q([1:end-1]), x(i,:)) + solution_q(end)) == y(i);
  end
  results_imp
  results_q
