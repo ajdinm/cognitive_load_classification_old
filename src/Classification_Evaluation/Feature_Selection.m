@@ -2,7 +2,7 @@ close all
 clear
 clc
 
-Events =['SW';'CR';'HE'];
+Events =['CR';'HE'];
 [nrOfEvents,~]=size(Events);
 
 X=[];

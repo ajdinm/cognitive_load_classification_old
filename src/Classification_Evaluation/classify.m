@@ -17,7 +17,7 @@ clc
 
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['SW';'HE';'CR'];
+Events =['HE';'CR'];
 [nrOfEvents,~]=size(Events);
 
 X=[];
@@ -68,8 +68,8 @@ X=[X,SH(:,:)];
 %X=X(:,[4 6 11 15 22 35 52]);
 %0.65 for gaussian kernel with ALL events
 %X=X(:,[3 5 6 7 11 15 20 22 34 50]);
-
-X=X(:,[7 10 11 13 33 34 35 37 41 42]);
+%0.66 for gaussian kernel with HE, CR
+%X=X(:,[7 10 11 26 32 34 35 40 47 55]);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,6 +97,13 @@ if  Idx_CR> 0
  
 end
 
+[inmodel,history]=sequentialfs(@my_fun,X,Y,'cv',4,'direction','forward','nfeatures',20);
+OnesInModel=find(inmodel==1);
+ZerosInModel=find(inmodel==0);
+
+X=X(:,inmodel(:,:));
+
+%X=X(:,[7 10 11 26 32 34 35 40 47 55]);
 
 k = 4;  %How many folds for the k-fold
 
@@ -133,13 +140,13 @@ for j=1:k
     %Training of 5 different classifiers
     rng(1);
     SVM_Gaussian=fitcsvm(training_set ,training_labels,'KernelFunction','rbf',...
-           'BoxConstraint',1,'KernelScale','auto','Standardize',true);
+           'BoxConstraint',1,'KernelScale','auto','Standardize',false);
     rng(1);
     SVM_Polynomial = fitcsvm(training_set, training_labels, ... 
-           'KernelFunction', 'polynomial', 'Standardize', true, 'KernelScale','auto');
+           'KernelFunction', 'polynomial', 'Standardize', false, 'KernelScale','auto');
     rng(1);
     SVM_Linear  = fitcsvm(training_set, training_labels,'BoxConstraint',1, ... 
-           'KernelFunction', 'linear', 'Standardize', true, 'KernelScale','auto');
+           'KernelFunction', 'linear', 'Standardize', false, 'KernelScale','auto');
 
     Random_Forest = TreeBagger(20, training_set, training_labels, ...
            'OOBPrediction','on');
