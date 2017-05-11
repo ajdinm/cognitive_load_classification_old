@@ -14,6 +14,7 @@ close all
 clear
 clc
 
+%comment
 
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
