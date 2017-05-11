@@ -18,7 +18,7 @@ clc
 
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['HE';'CR'];
+Events =['HE';'CR';'SW'];
 [nrOfEvents,~]=size(Events);
 
 X=[];
@@ -98,15 +98,14 @@ if  Idx_CR> 0
  
 end
 
-[inmodel,history]=sequentialfs(@my_fun,X,Y,'cv',4,'direction','forward','nfeatures',20);
+k = 10;  %How many folds for the k-fold
+
+[inmodel,history]=sequentialfs(@my_fun,X,Y,'cv',k,'direction','forward','nfeatures',15);
 OnesInModel=find(inmodel==1);
 ZerosInModel=find(inmodel==0);
 
 X=X(:,inmodel(:,:));
 
-%X=X(:,[7 10 11 26 32 34 35 40 47 55]);
-
-k = 4;  %How many folds for the k-fold
 
 Indices=KFoldValid(k,length(Y));
 Result = struct('Gaussian',{},'Polynomial',{},'Linear',{},'NaiveBayes',{},'RandomForest',{});
