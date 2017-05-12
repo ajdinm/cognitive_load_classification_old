@@ -15,7 +15,7 @@ clc
 
 
 k = 10;  %How many folds for the k-fold
-threshold=0.011; %Threshold for the feature selection
+threshold=0.0135; %Threshold for the feature selection
 PortionToHoldOut=0.2; %For hold out validation must be between 0 and 1
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
@@ -42,8 +42,13 @@ for n=1:nrOfEvents
         X=[X;temp];
     end
 end
-%Normalization takes place here
-HRV = Shaibal_Features(Events,nrOfEvents); %Adding HRV features
+%Normalization of all features except HRV
+for i=1:size(X,2)
+    X(:,i)=Normalization_Features(X(:,i));
+end
+
+HRV = Shaibal_Features(Events,nrOfEvents); %Adding HRV features which already
+%are normalized
 X=[X,HRV(:,:)];  
 
 Y=repmat([1;0],length(X)/2,1);
