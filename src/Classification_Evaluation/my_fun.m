@@ -1,6 +1,6 @@
 function [ criterion ] = my_fun(training_set,training_labels,validation_set,validation_labels)
-model = fitcsvm(training_set, training_labels,'KernelFunction', 'rbf'...
-    ,'Standardize', false, 'KernelScale','auto','BoxConstraint',1);
+model = fitcsvm(training_set, training_labels,'KernelFunction', 'linear'...
+    ,'Standardize', true, 'KernelScale','auto','BoxConstraint',1);
 %Gaussian kernel = rbf
 %Linear kernel = linear
 

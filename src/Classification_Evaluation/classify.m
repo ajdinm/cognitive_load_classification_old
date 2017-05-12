@@ -1,11 +1,26 @@
 close all
 clear
 clc
+%Variables that can be played with to obtain better result:
+%k = for the k-fold in the feature selection algorithm
+%PortionToHoldOut = how much of X should be used for validation?
+%The events of course
+%In my_fun which the feature selection algorithm you can change kernel of
+%svm, so either linear or rbf depending for which SVM you want to optimize
+%the features.
+%CritDiff = in the struct history there is a field name Crit, this is a
+%measure of good the features are. CritDiff is threshold between the
+%maximum crit and the other features which are included. (Ask me for better
+%explaination). 
+
+%Apart from the plots there is also resultin the Result struct.
+%Happy hunting...
+
+
 %Using the features extracted with FeatureExtraction scirpt to compare
-%5 different classifiers, k-fold cross validation is used where k can be
-%changed to any real number you want. The classifiers are evaluated
-%according to their ROC curve which will be plotted to you along with the
-%AUC result.
+%5 different classifiers, holdout validation is employed in order to 
+%create a validation set. The classifiers are evaluated according to their
+%ROC curve which will be plotted to you along with the AUC result.
 %Need to install Bioinformatics Toolbox 4.7 for it to work - maybe not..??
 
 %Find the folder in which you store the three folders that contains the
@@ -14,8 +29,8 @@ clc
 %So for example C:\Desktop\Features\ExtractedFeatures_
 
 
-k = 10;  %How many folds for the k-fold
-threshold=0.0135; %Threshold for the feature selection
+k = 10;  %Number of k-folds for feature selection algorithm
+CritDiff=0.001
 PortionToHoldOut=0.2; %For hold out validation must be between 0 and 1
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
@@ -65,8 +80,10 @@ end
 [Train,Test]=HoldOutValid(Y, PortionToHoldOut);
 
 %Sequential Feature Selection
-[inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','forward','nfeatures',20);
+[inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','backward','nfeatures',30);
+threshold=max(history.Crit)-CritDiff;
 SelectedFeatures=find(history.Crit > threshold);
+
 
 X=X(:,SelectedFeatures(:,:));
 training_set=X(Train,:);
@@ -77,13 +94,13 @@ validation_labels=Y(Test);
     %Training of 5 different classifiers
     rng(1);
     SVM_Gaussian=fitcsvm(training_set ,training_labels,'KernelFunction','rbf',...
-           'BoxConstraint',1,'KernelScale','auto','Standardize',false);
+           'BoxConstraint',1,'KernelScale','auto','Standardize',true);
     rng(1);
     SVM_Polynomial = fitcsvm(training_set, training_labels, ... 
-           'KernelFunction', 'polynomial', 'Standardize', false, 'KernelScale','auto');
+           'KernelFunction', 'polynomial', 'Standardize', true, 'KernelScale','auto');
     rng(1);
     SVM_Linear  = fitcsvm(training_set, training_labels,'BoxConstraint',1, ... 
-           'KernelFunction', 'linear', 'Standardize', false, 'KernelScale','auto');
+           'KernelFunction', 'linear', 'Standardize', true, 'KernelScale','auto');
 
     Random_Forest = TreeBagger(20, training_set, training_labels, ...
            'OOBPrediction','on');

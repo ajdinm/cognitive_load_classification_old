@@ -12,7 +12,7 @@ function [ FeatureNorm ] = Normalization_Features( Feature )
 % 0-1 range normalization with 0.1 offset
 MinF=min(Feature);
 MaxF=max(Feature);
-offset=0.1;
+offset=0;
 for i = 1:length(Feature)
     FeatureNorm(i) = ((Feature(i)-MinF)/(MaxF-MinF))+offset;
 end
