@@ -34,299 +34,299 @@ ENT = sortrows(ENT, 2);
 
 % 1. Sampen = Sample Entropy
     SampenHE = table2array(ENT(1:132,5:5));
-    SampenHE = Normaliztion_Shaibal_Features(SampenHE); % Normalization per subject aroun 0.25
+    SampenHE = Normalization_Features(SampenHE); % Normalization per subject aroun 0.25
    
         SampenCR = table2array(ENT(133:264,5:5));
-        SampenCR = Normaliztion_Shaibal_Features(SampenCR);
+        SampenCR = Normalization_Features(SampenCR);
         
             SampenSW = table2array(ENT(265:396,5:5));
-            SampenSW = Normaliztion_Shaibal_Features(SampenSW);
+            SampenSW = Normalization_Features(SampenSW);
 % 2. Apen = Approximate Entropy
     ApenHE = table2array(ENT(1:132,6:6));
-    ApenHE = Normaliztion_Shaibal_Features(ApenHE);
+    ApenHE = Normalization_Features(ApenHE);
     
         ApenCR = table2array(ENT(133:264,6:6));
-        ApenCR = Normaliztion_Shaibal_Features(ApenCR);
+        ApenCR = Normalization_Features(ApenCR);
         
             ApenSW = table2array(ENT(265:396,6:6));
-            ApenSW = Normaliztion_Shaibal_Features(ApenSW);
+            ApenSW = Normalization_Features(ApenSW);
 % 3. Pen = Permutation Entropy
      PenHE = table2array(ENT(1:132,7:7));
-     PenHE = Normaliztion_Shaibal_Features(PenHE);
+     PenHE = Normalization_Features(PenHE);
      
             PenCR = table2array(ENT(133:264,7:7));
-            PenCR = Normaliztion_Shaibal_Features(PenCR);
+            PenCR = Normalization_Features(PenCR);
             
                 PenSW = table2array(ENT(265:396,7:7));
-                PenSW = Normaliztion_Shaibal_Features(PenSW);
+                PenSW = Normalization_Features(PenSW);
                 
 % 4. LLE = Largest Lyapunove exponent
      LLEHE = table2array(ENT(1:132,8:8));
-     LLEHE = Normaliztion_Shaibal_Features(LLEHE);
+     LLEHE = Normalization_Features(LLEHE);
      
             LLECR = table2array(ENT(133:264,8:8));
-            LLECR = Normaliztion_Shaibal_Features(LLECR);
+            LLECR = Normalization_Features(LLECR);
             
                 LLESW = table2array(ENT(265:396,8:8));
-                LLESW = Normaliztion_Shaibal_Features(LLESW);
+                LLESW = Normalization_Features(LLESW);
                 
 % 5. Energy = Energy of the IBI signal
      EnergyHE = table2array(ENT(1:132,9:9));
-     EnergyHE = Normaliztion_Shaibal_Features(EnergyHE);
+     EnergyHE = Normalization_Features(EnergyHE);
      
             EnergyCR = table2array(ENT(133:264,9:9));
-            EnergyCR = Normaliztion_Shaibal_Features(EnergyCR);
+            EnergyCR = Normalization_Features(EnergyCR);
             
                 EnergySW = table2array(ENT(265:396,9:9));
-                EnergySW = Normaliztion_Shaibal_Features(EnergySW);
+                EnergySW = Normalization_Features(EnergySW);
                 
 % 6. Energyen = Energy entropy of the IBI signal 
     EnergyenHE = table2array(ENT(1:132,10:10));
-    EnergyenHE = Normaliztion_Shaibal_Features(EnergyenHE);
+    EnergyenHE = Normalization_Features(EnergyenHE);
     
             EnergyenCR = table2array(ENT(133:264,10:10));
-            EnergyenCR = Normaliztion_Shaibal_Features(EnergyenCR);
+            EnergyenCR = Normalization_Features(EnergyenCR);
             
                 EnergyenSW = table2array(ENT(265:396,10:10));
-                EnergyenSW = Normaliztion_Shaibal_Features(EnergyenSW);
+                EnergyenSW = Normalization_Features(EnergyenSW);
 
 % HRV_Frequency_Feature
 
 % 1. Vlf = Power spectral destiny of very low frequency
     VlfHE = table2array(FQ(1:132,5:5));
-    VlfHE = Normaliztion_Shaibal_Features(VlfHE);
+    VlfHE = Normalization_Features(VlfHE);
     
             VlfCR = table2array(FQ(133:264,5:5));
-            VlfCR = Normaliztion_Shaibal_Features(VlfCR);
+            VlfCR = Normalization_Features(VlfCR);
             
                 VlfSW = table2array(FQ(265:396,5:5));
-                VlfSW = Normaliztion_Shaibal_Features(VlfSW);
+                VlfSW = Normalization_Features(VlfSW);
                 
 % 2. Lf = Power spectral destiny of low frequency
     LfHE = table2array(FQ(1:132,6:6));
-    LfHE = Normaliztion_Shaibal_Features(LfHE);
+    LfHE = Normalization_Features(LfHE);
     
             LfCR = table2array(FQ(133:264,6:6));
-            LfCR = Normaliztion_Shaibal_Features(LfCR);
+            LfCR = Normalization_Features(LfCR);
             
                 LfSW = table2array(FQ(265:396,6:6));
-                LfSW = Normaliztion_Shaibal_Features(LfSW);
+                LfSW = Normalization_Features(LfSW);
                 
 % 3. Hf = Power spectral destiny of high frequency
     HfHE = table2array(FQ(1:132,7:7));
-    HfHE = Normaliztion_Shaibal_Features(HfHE);
+    HfHE = Normalization_Features(HfHE);
     
             HfCR = table2array(FQ(133:264,7:7));
-            HfCR = Normaliztion_Shaibal_Features(HfCR);
+            HfCR = Normalization_Features(HfCR);
             
                 HfSW = table2array(FQ(265:396,7:7));
-                HfSW = Normaliztion_Shaibal_Features(HfSW);
+                HfSW = Normalization_Features(HfSW);
                 
 % 4. Totalpower =Power spectral destiny of total power (ultra low to high frequency range)
     TotalpowerHE = table2array(FQ(1:132,8:8));
-    TotalpowerHE = Normaliztion_Shaibal_Features(TotalpowerHE);
+    TotalpowerHE = Normalization_Features(TotalpowerHE);
     
             TotalpowerCR = table2array(FQ(133:264,8:8));
-            TotalpowerCR = Normaliztion_Shaibal_Features(TotalpowerCR);
+            TotalpowerCR = Normalization_Features(TotalpowerCR);
             
                 TotalpowerSW = table2array(FQ(265:396,8:8));
-                TotalpowerSW = Normaliztion_Shaibal_Features(TotalpowerSW);
+                TotalpowerSW = Normalization_Features(TotalpowerSW);
                 
 % 5. Lfhfratio = ratio of low frequency and high frequency power
     LfhfratioHE = table2array(FQ(1:132,9:9));
-    LfhfratioHE = Normaliztion_Shaibal_Features(LfhfratioHE);
+    LfhfratioHE = Normalization_Features(LfhfratioHE);
     
             LfhfratioCR = table2array(FQ(133:264,9:9));
-            LfhfratioCR = Normaliztion_Shaibal_Features(LfhfratioCR);
+            LfhfratioCR = Normalization_Features(LfhfratioCR);
             
                 LfhfratioSW = table2array(FQ(265:396,9:9));
-                LfhfratioSW = Normaliztion_Shaibal_Features(LfhfratioSW);
+                LfhfratioSW = Normalization_Features(LfhfratioSW);
                 
 % 6. Lfnu = normalised low frequency power
     LfnuHE = table2array(FQ(1:132,10:10));
-    LfnuHE = Normaliztion_Shaibal_Features(LfnuHE);
+    LfnuHE = Normalization_Features(LfnuHE);
     
             LfnuCR = table2array(FQ(133:264,10:10));
-            LfnuCR = Normaliztion_Shaibal_Features(LfnuCR);
+            LfnuCR = Normalization_Features(LfnuCR);
             
                 LfnuSW = table2array(FQ(265:396,10:10));
-                LfnuSW = Normaliztion_Shaibal_Features(LfnuSW);
+                LfnuSW = Normalization_Features(LfnuSW);
                 
 % 7. Hfnu = normalised high frequency power
     HfnuHE = table2array(FQ(1:132,11:11));
-    HfnuHE = Normaliztion_Shaibal_Features(HfnuHE);
+    HfnuHE = Normalization_Features(HfnuHE);
     
             HfnuCR = table2array(FQ(133:264,11:11));
-            HfnuCR = Normaliztion_Shaibal_Features(HfnuCR);
+            HfnuCR = Normalization_Features(HfnuCR);
             
                 HfnuSW = table2array(FQ(265:396,11:11));
-                HfnuSW = Normaliztion_Shaibal_Features(HfnuSW);
+                HfnuSW = Normalization_Features(HfnuSW);
                 
 
 % HRV_Time_Feature
 
 % 1. Meanrr = mean of RR peak
     MeanrrHE = table2array(TIME(1:132,5:5));
-    MeanrrHE = Normaliztion_Shaibal_Features(MeanrrHE);
+    MeanrrHE = Normalization_Features(MeanrrHE);
     
             MeanrrCR = table2array(TIME(133:264,5:5));
-            MeanrrCR = Normaliztion_Shaibal_Features(MeanrrCR);
+            MeanrrCR = Normalization_Features(MeanrrCR);
             
                 MeanrrSW = table2array(TIME(265:396,5:5));
-                MeanrrSW = Normaliztion_Shaibal_Features(MeanrrSW);
+                MeanrrSW = Normalization_Features(MeanrrSW);
                 
 
 % 2. Sdrr  = standard deviation of RR peak
     SdrrHE = table2array(TIME(1:132,6:6));
-    SdrrHE = Normaliztion_Shaibal_Features(SdrrHE);
+    SdrrHE = Normalization_Features(SdrrHE);
     
             SdrrCR = table2array(TIME(133:264,6:6));
-            SdrrCR = Normaliztion_Shaibal_Features(SdrrCR);
+            SdrrCR = Normalization_Features(SdrrCR);
             
                 SdrrSW = table2array(TIME(265:396,6:6));
-                SdrrSW = Normaliztion_Shaibal_Features(SdrrSW);
+                SdrrSW = Normalization_Features(SdrrSW);
                 
 
 % 3. Meanhr = mean heart rate from ECG
     MeanhrHE = table2array(TIME(1:132,7:7));
-    MeanhrHE = Normaliztion_Shaibal_Features(MeanhrHE);
+    MeanhrHE = Normalization_Features(MeanhrHE);
     
             MeanhrCR = table2array(TIME(133:264,7:7));
-            MeanhrCR = Normaliztion_Shaibal_Features(MeanhrCR);
+            MeanhrCR = Normalization_Features(MeanhrCR);
             
                 MeanhrSW = table2array(TIME(265:396,7:7));
-                MeanhrSW = Normaliztion_Shaibal_Features(MeanhrSW);
+                MeanhrSW = Normalization_Features(MeanhrSW);
                 
 
 % 4. Sdhr = standard deviation of heart rate from ECG
     SdhrHE = table2array(TIME(1:132,8:8));
-    SdhrHE = Normaliztion_Shaibal_Features(SdhrHE);
+    SdhrHE = Normalization_Features(SdhrHE);
     
             SdhrCR = table2array(TIME(133:264,8:8));
-            SdhrCR = Normaliztion_Shaibal_Features(SdhrCR);
+            SdhrCR = Normalization_Features(SdhrCR);
             
                 SdhrSW = table2array(TIME(265:396,8:8));
-                SdhrSW = Normaliztion_Shaibal_Features(SdhrSW);
+                SdhrSW = Normalization_Features(SdhrSW);
                 
 
 % 5. Meannn  = mean of NN interval from Inter-Beat-Interval 
     MeannnHE = table2array(TIME(1:132,9:9));
-    MeannnHE = Normaliztion_Shaibal_Features(MeannnHE);
+    MeannnHE = Normalization_Features(MeannnHE);
     
             MeannnCR = table2array(TIME(133:264,9:9));
-            MeannnCR = Normaliztion_Shaibal_Features(MeannnCR);
+            MeannnCR = Normalization_Features(MeannnCR);
             
                 MeannnSW = table2array(TIME(265:396,9:9));
-                MeannnSW = Normaliztion_Shaibal_Features(MeannnSW);
+                MeannnSW = Normalization_Features(MeannnSW);
 
 % 6. Sdnn = standard deviation of NN interval from Inter-Beat-Interval 
     SdnnHE = table2array(TIME(1:132,10:10));
-    SdnnHE = Normaliztion_Shaibal_Features(SdnnHE);
+    SdnnHE = Normalization_Features(SdnnHE);
     
             SdnnCR = table2array(TIME(133:264,10:10));
-            SdnnCR = Normaliztion_Shaibal_Features(SdnnCR);
+            SdnnCR = Normalization_Features(SdnnCR);
             
                 SdnnSW = table2array(TIME(265:396,10:10));
-                SdnnSW = Normaliztion_Shaibal_Features(SdnnSW);
+                SdnnSW = Normalization_Features(SdnnSW);
                 
 
 % 7. Rmssd = The square root of the mean of the sum of the squares of differences between adjacent NN intervals
     RmssdHE = table2array(TIME(1:132,11:11));
-    RmssdHE = Normaliztion_Shaibal_Features(RmssdHE);
+    RmssdHE = Normalization_Features(RmssdHE);
     
             RmssdCR = table2array(TIME(133:264,11:11));
-            RmssdCR = Normaliztion_Shaibal_Features(RmssdCR);
+            RmssdCR = Normalization_Features(RmssdCR);
             
                 RmssdSW = table2array(TIME(265:396,11:11));
-                RmssdSW = Normaliztion_Shaibal_Features(RmssdSW);
+                RmssdSW = Normalization_Features(RmssdSW);
 
 % 8. Sdsd = Standard deviation of differences between adjacent NN intervals
     SdsdHE = table2array(TIME(1:132,12:12));
-    SdsdHE = Normaliztion_Shaibal_Features(SdsdHE);
+    SdsdHE = Normalization_Features(SdsdHE);
     
             SdsdCR = table2array(TIME(133:264,12:12));
-            SdsdCR = Normaliztion_Shaibal_Features(SdsdCR);
+            SdsdCR = Normalization_Features(SdsdCR);
             
                 SdsdSW = table2array(TIME(265:396,12:12));
-                SdsdSW = Normaliztion_Shaibal_Features(SdsdSW);
+                SdsdSW = Normalization_Features(SdsdSW);
                 
 
 % 9. nn50 = Number of pairs of adjacent NN intervals differing by more than 50 ms in the entire recording
     nn50HE = table2array(TIME(1:132,13:13));
-    nn50HE = Normaliztion_Shaibal_Features(nn50HE);
+    nn50HE = Normalization_Features(nn50HE);
     
             nn50CR = table2array(TIME(133:264,13:13));
-            nn50CR = Normaliztion_Shaibal_Features(nn50CR);
+            nn50CR = Normalization_Features(nn50CR);
             
                 nn50SW = table2array(TIME(265:396,13:13));
-                nn50SW = Normaliztion_Shaibal_Features(nn50SW);
+                nn50SW = Normalization_Features(nn50SW);
 
 % 10. pnn50 = NN50 count divided by the total number of all NN intervals
     pnn50HE = table2array(TIME(1:132,14:14));
-    pnn50HE = Normaliztion_Shaibal_Features(pnn50HE);
+    pnn50HE = Normalization_Features(pnn50HE);
     
             pnn50CR = table2array(TIME(133:264,14:14));
-            pnn50CR = Normaliztion_Shaibal_Features(pnn50CR);
+            pnn50CR = Normalization_Features(pnn50CR);
             
                 pnn50SW = table2array(TIME(265:396,14:14));
-                pnn50SW = Normaliztion_Shaibal_Features(pnn50SW);
+                pnn50SW = Normalization_Features(pnn50SW);
 
 
 % HRV_Nonlinear_Feature
 
 % 1. sd1 = dispersion of the points perpendicular to the axis of line of identity (Poincare plot)
     sd1HE = table2array(NON(1:132,5:5));
-    sd1HE = Normaliztion_Shaibal_Features(sd1HE);
+    sd1HE = Normalization_Features(sd1HE);
     
             sd1CR = table2array(NON(133:264,5:5));
-            sd1CR = Normaliztion_Shaibal_Features(sd1CR);
+            sd1CR = Normalization_Features(sd1CR);
             
                 sd1SW = table2array(NON(265:396,5:5));
-                sd1SW = Normaliztion_Shaibal_Features(sd1SW);
+                sd1SW = Normalization_Features(sd1SW);
                 
 
 % 2. sd2 = dispersion of the points along the axis of line of identity (Poincare plot)
     sd2HE = table2array(NON(1:132,6:6));
-    sd2HE = Normaliztion_Shaibal_Features(sd2HE);
+    sd2HE = Normalization_Features(sd2HE);
     
             sd2CR = table2array(NON(133:264,6:6));
-            sd2CR = Normaliztion_Shaibal_Features(sd2CR);
+            sd2CR = Normalization_Features(sd2CR);
             
                 sd2SW = table2array(NON(265:396,6:6));
-                sd2SW = Normaliztion_Shaibal_Features(sd2SW);
+                sd2SW = Normalization_Features(sd2SW);
                 
 
 % 3. Dfaalphaall = alpha of total slop (Detrended fluctuation analysis)
     DfaalphaallHE = table2array(NON(1:132,7:7));
-    DfaalphaallHE = Normaliztion_Shaibal_Features(DfaalphaallHE);
+    DfaalphaallHE = Normalization_Features(DfaalphaallHE);
     
             DfaalphaallCR = table2array(NON(133:264,7:7));
-            DfaalphaallCR = Normaliztion_Shaibal_Features(DfaalphaallCR);
+            DfaalphaallCR = Normalization_Features(DfaalphaallCR);
             
                 DfaalphaallSW = table2array(NON(265:396,7:7));
-                DfaalphaallSW = Normaliztion_Shaibal_Features(DfaalphaallSW);
+                DfaalphaallSW = Normalization_Features(DfaalphaallSW);
                 
 
 % 4. dfaalpha1 = alpha of short range scaling exponent (Detrended fluctuation analysis)
     dfaalpha1HE = table2array(NON(1:132,8:8));
-    dfaalpha1HE = Normaliztion_Shaibal_Features(dfaalpha1HE);
+    dfaalpha1HE = Normalization_Features(dfaalpha1HE);
     
             dfaalpha1CR = table2array(NON(133:264,8:8));
-            dfaalpha1CR = Normaliztion_Shaibal_Features(dfaalpha1CR);
+            dfaalpha1CR = Normalization_Features(dfaalpha1CR);
             
                 dfaalpha1SW = table2array(NON(265:396,8:8));
-                dfaalpha1SW = Normaliztion_Shaibal_Features(dfaalpha1SW);
+                dfaalpha1SW = Normalization_Features(dfaalpha1SW);
                 
 
 % 5. dfaalpha2 = alpha of long range scaling exponent (Detrended fluctuation analysis)
     dfaalpha2HE = table2array(NON(1:132,9:9));
-    dfaalpha2HE = Normaliztion_Shaibal_Features(dfaalpha2HE);
+    dfaalpha2HE = Normalization_Features(dfaalpha2HE);
     
             dfaalpha2CR = table2array(NON(133:264,9:9));
-            dfaalpha2CR = Normaliztion_Shaibal_Features(dfaalpha2CR);
+            dfaalpha2CR = Normalization_Features(dfaalpha2CR);
             
                 dfaalpha2SW = table2array(NON(265:396,9:9));
-                dfaalpha2SW = Normaliztion_Shaibal_Features(dfaalpha2SW);
+                dfaalpha2SW = Normalization_Features(dfaalpha2SW);
                 
 
 Table_CR=[ApenCR, dfaalpha1CR, dfaalpha2CR, DfaalphaallCR, EnergyCR, EnergyenCR, HfCR, HfnuCR, LfCR...
