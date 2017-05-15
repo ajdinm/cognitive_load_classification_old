@@ -30,7 +30,7 @@ clc
 
 
 k = 10;  %Number of k-folds for feature selection algorithm
-CritDiff=0.001
+CritDiff=0.001;
 PortionToHoldOut=0.2; %For hold out validation must be between 0 and 1
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
@@ -75,17 +75,16 @@ if  Idx_CR> 0
     stop=start+(length(X)/nrOfEvents)-1;
     Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);
 end
-
 %Hold out validation
 [Train,Test]=HoldOutValid(Y, PortionToHoldOut);
 
 %Sequential Feature Selection
-[inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','backward','nfeatures',30);
+ [inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','forward','nfeatures',15);
+
 threshold=max(history.Crit)-CritDiff;
 SelectedFeatures=find(history.Crit > threshold);
-
-
 X=X(:,SelectedFeatures(:,:));
+
 training_set=X(Train,:);
 training_labels=Y(Train);
 validation_set=X(Test,:);
@@ -94,30 +93,33 @@ validation_labels=Y(Test);
     %Training of 5 different classifiers
     rng(1);
     SVM_Gaussian=fitcsvm(training_set ,training_labels,'KernelFunction','rbf',...
-           'BoxConstraint',1,'KernelScale','auto','Standardize',true);
+           'BoxConstraint',10,'KernelScale','auto','Standardize',true);
+    SVM_Gaussian = fitSVMPosterior(SVM_Gaussian);
     rng(1);
     SVM_Polynomial = fitcsvm(training_set, training_labels, ... 
            'KernelFunction', 'polynomial', 'Standardize', true, 'KernelScale','auto');
+    SVM_Polynomial = fitSVMPosterior(SVM_Polynomial);
     rng(1);
     SVM_Linear  = fitcsvm(training_set, training_labels,'BoxConstraint',1, ... 
            'KernelFunction', 'linear', 'Standardize', true, 'KernelScale','auto');
-
+    SVM_Linear = fitSVMPosterior(SVM_Linear);
+    
     Random_Forest = TreeBagger(20, training_set, training_labels, ...
            'OOBPrediction','on');
     Naive_Bayes = fitcnb(training_set, training_labels);
-
     %Validation of each classifier
-        Gauss_Prediction = predict (SVM_Gaussian, validation_set);
-        Poly_Prediction = predict (SVM_Polynomial, validation_set);
-        Linear_Prediction = predict (SVM_Linear, validation_set);
-        Random_Forest_Prediction = str2double(predict (Random_Forest, validation_set));
-        Naive_Bayes_Prediction = predict (Naive_Bayes, validation_set);
+        [Gauss_Prediction, Gauss_Score] = predict (SVM_Gaussian, validation_set);
+        [Poly_Prediction, Poly_Score] = predict (SVM_Polynomial, validation_set);
+        [Linear_Prediction, Linear_Score] = predict (SVM_Linear, validation_set);
+        [Random_Forest_Prediction,Random_Forest_Score] = predict (Random_Forest, validation_set);
+        Random_Forest_Prediction=str2double(Random_Forest_Prediction);
+        [Naive_Bayes_Prediction, Naive_Bayes_Score] = predict (Naive_Bayes, validation_set);
 
-
-Result(1).Gaussian=EvaluateClassification ( Gauss_Prediction, validation_labels, 1);
-Result(2).Polynomial= EvaluateClassification ( Poly_Prediction, validation_labels,2);
-Result(3).Linear= EvaluateClassification ( Linear_Prediction, validation_labels,3);
-Result(4).RandomForest= EvaluateClassification ( Random_Forest_Prediction, validation_labels,4);
-Result(5).NaiveBayes= EvaluateClassification ( Naive_Bayes_Prediction, validation_labels,5);
+        
+ Result(1).Gaussian=EvaluateClassification ( Gauss_Prediction, Gauss_Score(:,2), validation_labels, 1);
+ Result(2).Polynomial= EvaluateClassification ( Poly_Prediction,Poly_Score(:,2), validation_labels,2);
+ Result(3).Linear= EvaluateClassification ( Linear_Prediction, Linear_Score(:,2),validation_labels,3);
+ Result(4).RandomForest= EvaluateClassification ( Random_Forest_Prediction,Random_Forest_Score(:,2), validation_labels,4);
+ Result(5).NaiveBayes= EvaluateClassification ( Naive_Bayes_Prediction,Naive_Bayes_Score(:,2), validation_labels,5);
 
 

@@ -1,6 +1,6 @@
-function [  ClassifyResult ] = EvaluateClassification(Classified, validation_labels, figNr)
+function [  ClassifyResult ] = EvaluateClassification(Prediction,Score, validation_labels, figNr)
      
-    [X_score,Y_score,~,AUC_score] = perfcurve(validation_labels,Classified,1);
+    [X_score,Y_score,Thresholds,AUC_score] = perfcurve(validation_labels,Score,1);
     
     %plotting ROC for the two cognitnive loaded and the not loaded events
     switch(figNr)
@@ -27,14 +27,14 @@ function [  ClassifyResult ] = EvaluateClassification(Classified, validation_lab
     TN=0;
     FN=0;
         for i=1:length(validation_labels)
-            if Classified(i) == 1
-                if Classified(i) == validation_labels(i)
+            if Prediction(i) == 1
+                if Prediction(i) == validation_labels(i)
                     TP = TP +1;  %true positive
                 else
                     FP = FP +1;  %false positive
                 end
             else
-                if Classified(i) == validation_labels(i)
+                if Prediction(i) == validation_labels(i)
                     TN = TN+1; %true negative
                 else
                     FN = FN+1; %false negative

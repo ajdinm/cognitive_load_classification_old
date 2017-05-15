@@ -1,15 +1,16 @@
 function [ criterion ] = my_fun(training_set,training_labels,validation_set,validation_labels)
-model = fitcsvm(training_set, training_labels,'KernelFunction', 'linear'...
-    ,'Standardize', true, 'KernelScale','auto','BoxConstraint',1);
-%Gaussian kernel = rbf
-%Linear kernel = linear
+model = fitcsvm(training_set, training_labels,'KernelFunction', 'rbf'...
+    ,'Standardize', true, 'KernelScale','auto','BoxConstraint',10);
 
-Predictions = predict (model, validation_set);
-[~,~,~,AUC] = perfcurve(validation_labels,Predictions,1);
-criterion=1-AUC;
-%criterion = sum(predict (model, validation_set)~=validation_labels);
+criterion = sum(predict (model, validation_set)~=validation_labels);
 
 
 end
-    %model = svmtrain(trainY, trainX,['-s 0 -t 0 -c ' bestc]);
-      %criterion = sum(svmpredict(testY, testX, model) ~= testY);
+      
+      %model= fitSVMPosterior(model);
+%Gaussian kernel = rbf
+%Linear kernel = linear
+
+% Predictions = predict (model, validation_set);
+% [~,~,~,AUC] = perfcurve(validation_labels,probability(:,2),1);
+% criterion=1-AUC;
