@@ -4,11 +4,11 @@ clc
 
 
 k = 10;  %Number of k-folds for feature selection algorithm
-CritDiff=0.001;
+CritInclude=0.80;% Threshold will be set to 90% of maximum criterion
 PortionToHoldOut=0.2; %For hold out validation must be between 0 and 1
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['SW';'HE';'CR'];
+Events =['SW'];
 [nrOfEvents,~]=size(Events);
 
 X=[];
@@ -32,6 +32,8 @@ for n=1:nrOfEvents
     end
 end
 %Normalization of all features except HRV
+Folder='C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation';
+addpath(genpath(Folder));
 for i=1:size(X,2)
     X(:,i)=Normalization_Features(X(:,i));
 end
@@ -49,32 +51,43 @@ if  Idx_CR> 0
     stop=start+(length(X)/nrOfEvents)-1;
     Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);
 end
+
+
 %Hold out validation
 [Train,Test]=HoldOutValid(Y, PortionToHoldOut);
 
-
-
 %Sequential Feature Selection
-%  [inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','forward','nfeatures',15);
-% 
-% threshold=max(history.Crit)-CritDiff;
-% SelectedFeatures=find(history.Crit > threshold);
-% X=X(:,SelectedFeatures(:,:));
 
-training_set=X(Train,:);
+ [inmodel,history]=sequentialfs(@OptFeatures,X(Train,:),Y(Train),'cv',k,'direction','forward','nfeatures',15);
+
+
+ threshold=max(history.Crit)-max(history.Crit)*(1-CritInclude);
+ SelectedFeatures=find(history.Crit > threshold);
+ X=X(:,SelectedFeatures(:,:));
+ sigma=1;
+ Xnew = gaussian_kernel(X, sigma);
+ 
+ 
+training_set=Xnew(Train,:);
 training_labels=Y(Train);
-validation_set=X(Test,:);
+validation_set=Xnew(Test,:);
 validation_labels=Y(Test);
 
- sigma = 1;
-training_set = gaussian_kernel(training_set, sigma);
+
+
+
 [w, b]=quad_fitcsvm(training_set, training_labels);
 hits=0;
 for i = 1:size(validation_labels, 1)
-    temp2(i,1)= quad_predict(w, b, validation_set(i,:));
-     if temp2(i,1)==   validation_labels(i)
+   
+    Prediction(i,1)= quad_predict(w, b, validation_set(i,:));
+    score(i)=scores(w,b,validation_set(i,:));
+     if Prediction(i,1)==   validation_labels(i)
         hits = hits + 1;
     end
 end
+
+Result=EvaluateClassification(Prediction,score, validation_labels, 1);
+
 hits/length(validation_labels)
 disp('done');
