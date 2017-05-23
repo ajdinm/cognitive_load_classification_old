@@ -1,9 +1,7 @@
 function [ shaibal ] = Shaibal_Features (Events, nrOfEvents)
 
 
-Folder = 'C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\';           % Everybody can change to its locations and comment the other two out for easyer use
-% Folder = 'D:\MORE LOAD\New Shaibal HRV\';
-% Folder = 'D:\MORE LOAD\New Shaibal HRV\';
+Folder = 'C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\';    
 addpath(genpath(Folder));
 
 % Import but FICA
@@ -24,10 +22,6 @@ FQ = sortrows(FQ, 2); % 1 for numerical order, 2 for each event order
 TIME = sortrows(TIME, 2);
 NON = sortrows(NON, 2);
 ENT = sortrows(ENT, 2);
-
-% Car from right task is 0 1 0 1
-% Hidden exit task is 1 0 1 0
-% Side wind task is 1 0 1 0
 
 % Extract features
 % HRV_Entropy_Feature
@@ -341,8 +335,10 @@ Table_HE=[ApenHE; dfaalpha1HE; dfaalpha2HE; DfaalphaallHE; EnergyHE; EnergyenHE;
     ;LfhfratioHE; LfnuHE; LLEHE; MeanhrHE; MeannnHE; MeanrrHE; nn50HE; PenHE; pnn50HE; RmssdHE...
     ;SampenHE; sd1HE; sd2HE; SdhrHE; SdnnHE; SdrrHE; SdsdHE; TotalpowerHE; VlfHE];
 Table_HE=Table_HE';
+
+
 % Remove the 13:th subject, actaully the 11:th element  - 41 to 45
-% 
+ 
 All_CR = [Table_CR(1:41,:);Table_CR(46:132,:)]; % 32 subjects without nr13
 
 All_SW = [Table_SW(1:41,:);Table_SW(46:132,:)];
@@ -357,7 +353,7 @@ All_HE = [Table_HE(1:41,:);Table_HE(46:132,:)];
 
 shaibal=[];
 for n=1:nrOfEvents
-    
+
     if Events(n,:) == 'CR'
         shaibal = [shaibal;All_CR(:,:)];
     end
@@ -370,6 +366,4 @@ for n=1:nrOfEvents
     n=n+1;
 end
 
-
-%shaibal
 end

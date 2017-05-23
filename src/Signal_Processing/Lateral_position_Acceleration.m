@@ -1,19 +1,12 @@
 function [ result ] = Lateral_position_Acceleration(event,dir)
 
-% 
-% close all
-% clear all
-% clc
-
 load (dir,'SS_VDM_accY')         %---------------- data directory to be changed
-%load ('TP02_20150518_1500_Drive_TimeSegment')
+
 fs=50;
 low=1;
 high=0.1;
 t=SS_VDM_accY.TimeAxis.Data;
 Data=SS_VDM_accY.Data;
-
-                                                   %              event= HE;  % CHANGE SCENARIO - CR,SW,BC
 
 [Data,idx]=get_event_signals(Data, t, event);
 
@@ -35,25 +28,3 @@ meanCycle4 = mean(cycles4);
 
 result = [meanCycle1,meanCycle2,meanCycle3,meanCycle4];
 end
-% figure
-% subplot(2,2,1);
-% plot(t1,Data1,t1(locs1),pks1,'or')
-% xlabel('Time (s)');
-% ylabel('Data1');
-% axis tight
-% subplot(2,2,2);
-% plot(t2,Data2,t2(locs2),pks2,'or')
-% xlabel('Time (s)');
-% ylabel('Data2');
-% axis tight
-% subplot(2,2,3);
-% plot(t3,Data3,t3(locs3),pks3,'or')
-% xlabel('Time (s)');
-% ylabel('Data3');
-% axis tight
-% subplot(2,2,4);
-% plot(t4,Data4,t4(locs4),pks4,'or')
-% xlabel('Time (s)');
-% ylabel('Data4');
-% axis tight
-

@@ -1,20 +1,5 @@
 function HRVFrequencyFeatures = Import_HRV( filename, startRow, endRow)
 
-% Example:
-%   HRVFrequencyFeatures = import_HRV('HRV_Frequency_Features.csv', 2, 430);
-%                          import_HRV('HRV_Time_Features.csv', 2, 430);
-%                          import_HRV('HRV_Nonlinear_Features.csv', 2, 430);
-%                          import_HRV('HRV_Entropy_Features.csv', 2, 430);
-
-% 2 - 430 Full
-% 2- 397 Without FICA
-% 2 - 133 Hidden Exit134
-% 134 - 265 Car From Right
-% 266 - 397 Side Wind
-% 398 - 430 FICA
-% 
-% 
-
 % Initialize variables.
 delimiter = ';';
 if nargin<=2

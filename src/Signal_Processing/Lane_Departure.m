@@ -4,19 +4,13 @@ function [ result ] = Lane_Departure(event,dir)
 % Lane Flag departure is calculated and after a algorithm it can either be flaged = 1 or considered
 % t short to react to it = 0. Simple count can show how much it occurs in each scenario
 
-% close all
-% clear all
-% clc
-
 load (dir,'SS_VDM_laneDeparture');     %---------------- data directory to be changed
-%load ('TP02_20150518_1500_Drive_TimeSegment')
+
 fs=50;
 low=1;
 high=0.1;
 t=SS_VDM_laneDeparture.TimeAxis.Data;
 Data=SS_VDM_laneDeparture.Data;
-
-             %           event= CR;   % CHANGE SCENARIO - CR,SW,BC
 
 [Data,idx]=get_event_signals(Data, t, event);
 
