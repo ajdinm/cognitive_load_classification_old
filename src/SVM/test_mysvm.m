@@ -101,6 +101,7 @@ x = [5     1;
  negative_test = [2 10; 3 8];
  obs_test = [positive_test;negative_test];
  
+Y(Y==0)=-1;
  % using quad prog
  [n, p] = size(x);
  H = eye(p);

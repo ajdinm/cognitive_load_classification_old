@@ -6,7 +6,7 @@ x = [5     1;
      3     8];
  sigma = 1;
  
-% x = gaussian_kernel(x, sigma);
+ x = gaussian_kernel(x, sigma);
 y = [1 1 1 0 0 0]';
 
 [w, b] = quad_fitcsvm(x, y);

@@ -3,11 +3,10 @@ function [HFC,nrOfZeroCross,RevRate ] = STEERING_WHEEL(event,dir)
 %Three features are extracted and return from the function:
 %Number of zero crossings
 %Reversal rate
-%HIGH FREQUENCY COMPONENT OF STEERING WHEEL ANGLE VARIATION 
+%High Frequency Component of the steering wheel angle variation
 
     load (dir,'SS_VDM_stwAngle')
-    %load ('TP02_20150518_1500_Drive_TimeSegment')   %For debugging
-    fs=50;
+    fs=50; %sample rate
     low=0.6;
     high=0.3;
     t=SS_VDM_stwAngle.TimeAxis.Data;
@@ -19,7 +18,7 @@ function [HFC,nrOfZeroCross,RevRate ] = STEERING_WHEEL(event,dir)
 
     %Extracting High frequency component of steering wheel angle 
     for i=1:length(event)
-        Pall=rms(FiltData(idx(i,1):idx(i,2)));
+        Pall=rms(FiltData(idx(i,1):idx(i,2))); %root mean square
         Pband=rms(FiltDataHigh(idx(i,1):idx(i,2)));
         HFC(i) = Pband/Pall;
     end
@@ -42,27 +41,3 @@ end
 %https://www-nrd.nhtsa.dot.gov/pdf/esv/esv20/07-0262-o.pdf 
 %https://www-nrd.nhtsa.dot.gov/pdf/esv/esv20/07-0262-O.pdf
 
-
-
-% For plotting purpose and debugging purpose, uncomment if necessary
-% figure
-% subplot(2,2,1);
-% plot(t(idx(1,1):idx(1,2)), FiltData(idx(1,1):idx(1,2)));
-% xlabel('Time (s)');
-% ylabel('Steering Angle (Degrees)');
-% axis tight
-% subplot(2,2,2);
-% plot(t(idx(2,1):idx(2,2)), FiltData(idx(2,1):idx(2,2)));
-% xlabel('Time (s)');
-% ylabel('Steering Angle (Degrees)');
-% axis tight
-% subplot(2,2,3);
-% plot(t(idx(3,1):idx(3,2)), FiltData(idx(3,1):idx(3,2)));
-% xlabel('Time (s)');
-% ylabel('Steering Angle (Degrees)');
-% axis tight
-% subplot(2,2,4);
-% plot(t(idx(4,1):idx(4,2)), FiltData(idx(4,1):idx(4,2)));
-% xlabel('Time (s)');
-% ylabel('Steering Angle (Degrees)');
-% axis tight

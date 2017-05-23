@@ -1,45 +1,24 @@
 close all
 clear
 clc
-%Variables that can be played with to obtain better result:
-%k = for the k-fold in the feature selection algorithm
-%PortionToHoldOut = how much of X should be used for validation?
-%The events of course
-%In my_fun which the feature selection algorithm you can change kernel of
-%svm, so either linear or rbf depending for which SVM you want to optimize
-%the features.
-%CritDiff = in the struct history there is a field name Crit, this is a
-%measure of good the features are. CritDiff is threshold between the
-%maximum crit and the other features which are included. (Ask me for better
-%explaination). 
-
-%Apart from the plots there is also resultin the Result struct.
-%Happy hunting...
-
-
 %Using the features extracted with FeatureExtraction scirpt to compare
 %5 different classifiers, holdout validation is employed in order to 
 %create a validation set. The classifiers are evaluated according to their
 %ROC curve which will be plotted to you along with the AUC result.
+
 %Need to install Bioinformatics Toolbox 4.7 for it to work - maybe not..??
 
-%Find the folder in which you store the three folders that contains the
-%features from FeatureExtraction.m script. 
-%Type the directory and \ExtractedFeatures_, DO NOT include HE, CR or SW.
-%So for example C:\Desktop\Features\ExtractedFeatures_
-
-
-k = 10;  %Number of k-folds for feature selection algorithm
-CritDiff=0.001;
-PortionToHoldOut=0.2; %For hold out validation must be between 0 and 1
+PortionToHoldOut=0.3; %For hold out validation must be between 0 and 1
 %How many events should be included in the classification?
 %Choose between HE, SW and CR or two of them or all three.
-Events =['SW';'HE';'CR'];
-[nrOfEvents,~]=size(Events);
+Scenario =['SW';'HE';'CR'];
+FeatureDir='C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\';
+Featex='\ExtractedFeatures_';
+[nrOfScenario,~]=size(Scenario);
 
 X=[];
-for n=1:nrOfEvents
-    FeatureFolder=['C:\Users\nille\Desktop\AI Project VT 2017\Code\cognitive_load_classification\src\Classification_Evaluation\ExtractedFeatures_',Events(n,:)];
+for n=1:nrOfScenario
+    FeatureFolder=[FeatureDir Featex Scenario(n,:)];
     addpath(genpath(FeatureFolder));
     files=dir( fullfile(FeatureFolder,'*.mat'));
     files = {files.name}';
@@ -62,28 +41,21 @@ for i=1:size(X,2)
     X(:,i)=Normalization_Features(X(:,i));
 end
 
-HRV = Shaibal_Features(Events,nrOfEvents); %Adding HRV features which already
+HRV = Shaibal_Features(Scenario,nrOfScenario); %Adding HRV features which already
 %are normalized
 X=[X,HRV(:,:)];  
 
 Y=repmat([1;0],length(X)/2,1);
-Idx_CR=find(Events=='CR'); 
+Idx_CR=find(Scenario=='CR'); 
 %if CR is among the events the labels need to be switched around for that
 %event
 if  Idx_CR> 0
-    start=1+(Idx_CR(1,1)-1)*(length(X)/nrOfEvents);
-    stop=start+(length(X)/nrOfEvents)-1;
-    Y(start:stop)=repmat([0;1], (length(X)/(nrOfEvents*2)),1);
+    start=1+(Idx_CR(1,1)-1)*(length(X)/nrOfScenario);
+    stop=start+(length(X)/nrOfScenario)-1;
+    Y(start:stop)=repmat([0;1], (length(X)/(nrOfScenario*2)),1);
 end
 %Hold out validation
 [Train,Test]=HoldOutValid(Y, PortionToHoldOut);
-
-%Sequential Feature Selection
-%  [inmodel,history]=sequentialfs(@my_fun,X(Train,:),Y(Train),'cv',k,'direction','forward','nfeatures',15);
-% 
-% threshold=max(history.Crit)-CritDiff;
-% SelectedFeatures=find(history.Crit > threshold);
-% X=X(:,SelectedFeatures(:,:));
 
 training_set=X(Train,:);
 training_labels=Y(Train);

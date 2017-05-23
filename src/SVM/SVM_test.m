@@ -14,30 +14,12 @@ y	= zeros(Nf);
    end
  
      
-   %the two rows below is just something I tried...
-   nms=sum(training_set.^2);
-   Ks = exp(-(nms'*ones(1,Nf) -ones(Nf,1)*nms + 2*training_set'*training_set)/(2*ker_param^2));
-  
-   %comparing with Adjins implementation to try figure out whats going with
-   %the kernel funciton. 
-%    replicate_rows = kron(x, ones(obs, 1));% replicates each row obs times
-% replicate_x = repmat(x, obs, 1);
-% 
-% difference = replicate_x - replicate_rows;
-% squared_diff = difference .^ 2; % norm = sum(xi^2)
-% norm = sum(squared_diff')';
-% fraction = norm ./ (2 * sigma * sigma);
-% fraction = -fraction;
-% new_features = exp(fraction);
-   
-% linear kernel
-% ker_param = 1;
 
 solver='Quadprog';
 slack=2; %don't know what this is
-
+H=diag(z)*y'*y*diag(z);
    %Quadratic programming
-   alpha_star	= quadprog(diag(z)*y'*y*diag(z), -ones(1, Nf), zeros(1, Nf), 1, z, 0, zeros(1, Nf), slack*ones(1, Nf))';
+   alpha_star	= quadprog(H, -ones(1, Nf), zeros(1, Nf), 1, z, 0, zeros(1, Nf), slack*ones(1, Nf))';
    a_star		= (alpha_star.*z)*y';
    
    %Find the bias

@@ -1,5 +1,4 @@
 function [TrainIdx, TestIdx ] = HoldOutValid( Y,Part )
-
     YZeros=find(Y==0);
     YOnes=find(Y==1);
     
@@ -9,6 +8,5 @@ function [TrainIdx, TestIdx ] = HoldOutValid( Y,Part )
     
     TrainIdx=(1:length(Y))';
     TrainIdx(TestIdx)=[];
-
 end
 
