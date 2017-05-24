@@ -1,2 +1,2 @@
-# cognitive_load_classification
-Classification of the cognitive load in a driving setting. Project for Applied AI course at Mälardalen University, Sweden.
+# cognitive_load_classification_old
+Depreciated in favour of (ajdinm/cognitive_load_classification)[https://github.com/ajdinm/cognite_load_classification]. 
